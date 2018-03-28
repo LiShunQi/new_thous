@@ -10,9 +10,9 @@
   </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: 'Hyfbmodal',
-    props: ['qsqyList'], //父组件传入data
     data() {
       let self = this;
       return {
@@ -431,6 +431,11 @@
           let self = this;
           self.dataInit(1);
         }
+    },
+    computed: {
+      ...mapState({
+        qsqyList: state => state.index.qsqyList,
+      })
     }
   }
 </script>

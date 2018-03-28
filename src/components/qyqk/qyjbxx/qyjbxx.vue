@@ -74,9 +74,9 @@
   </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: 'qyjbxx',
-    props: ['qyjbxx'],
     data () {
       return {
         jbxx: ''// 企业基本信息
@@ -97,6 +97,11 @@
            self.jbxx = data;
          console.log('qyjbxx',self.qyjbxx);
        }
+    },
+    computed: {
+      ...mapState({
+        qyjbxx: state => state.jtqy.qyjbxx,
+      })
     }
   }
 </script>

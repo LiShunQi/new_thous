@@ -5,10 +5,9 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+  import { mapState } from 'vuex'
   export default {
     name: 'sztbbh',
-    props: ['szsr'],
     data () {
       return {
           option: {
@@ -157,7 +156,7 @@
     methods: {
       sztbbhFunction(){
         let self = this;
-        let myChart = Vue.prototype.echarts.init(document.getElementById('sztbbh'));
+        let myChart = self.echarts.init(document.getElementById('sztbbh'));
         self.handleData();
         myChart.clear();
         myChart.setOption(self.option);
@@ -204,6 +203,11 @@
       szsr: function () {
         this.sztbbhFunction();
       }
+    },
+    computed: {
+      ...mapState({
+        szsr: state => state.jtqy.szsr,
+      })
     }
   }
 </script>

@@ -27,11 +27,10 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import VDialog from "../../dialog/Modal"
   import VMoreqy from './Moreqy.vue'
+  import { mapState } from 'vuex'
   export default {
-    props:['sssrList','resetTab'],
     name: 'HelloWorld',
     components:{
       VDialog,
@@ -208,15 +207,6 @@
         }
       }
     },
-    watch:{
-      sssrList:function(){
-        this.regions('qyqs');
-      },
-      resetTab: function () { //重置tab
-        this.tab1 = true;
-        this.tab2 = false;
-      }
-    },
     mounted: function () {
       let self = this;
       self.$nextTick(function () {
@@ -275,7 +265,17 @@
           self.qyqszf_option.xAxis.data = qyqszf_name;
         }
       }
-    }
+    },
+    watch:{
+      sssrList:function(){
+        this.regions('qyqs');
+      },
+    },
+    computed: {
+      ...mapState({
+        sssrList: state => state.index.sssrList,
+      })
+    },
   }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

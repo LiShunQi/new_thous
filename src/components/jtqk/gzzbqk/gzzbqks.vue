@@ -6,9 +6,9 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: 'gzzbqks',
-    props: ['jtqk_gzszb'],
     data () {
       return {
           chartsInstance: '', //charts实例
@@ -105,6 +105,11 @@
           let self = this;
           self.gzzbqksFunction();
       }
+    },
+    computed: {
+      ...mapState({
+        jtqk_gzszb: state => state.jtqy.jtqk_gzszb,
+      })
     }
   }
 </script>

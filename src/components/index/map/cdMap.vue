@@ -38,9 +38,9 @@
 
 <script>
   import eventBus from '../../../assets/common/eventBus'
+  import { mapState } from 'vuex'
   export default {
     //AreaListList (区域list)，ssHs（统计数据）
-    props: [ 'ssHs','cdmapAll'],
     name: 'cdMap',
     data() {
       return {
@@ -39856,39 +39856,6 @@
         self.gettj(self.ssHs); //获取统计数据
       })
     },
-    watch: {
-      ssHs: function (data) {
-        this.gettj(data);
-        this.getTime();
-      },
-      cdmapAll:function(){
-        let self = this;
-        self.cdmapAll.AreaListList.forEach(function (valuearea, index) {
-          self.option.series[0].data.forEach(function (valueoption, index) {
-            if (valuearea.swjgmc == valueoption.name) {
-              valueoption.swjgmcoption = valuearea.swjgdm;
-            }
-          })
-        });
-        this.cdmapAll.sssrList.countQyhs.data.forEach(function(valuenum,index){
-          self.option.series[0].data.forEach(function (valueoption, index) {
-            if (valuenum.swjgmc == valueoption.name) {
-              valueoption.hsoption = valuenum.hs;
-            }
-          })
-        });
-        this.cdmapAll.sssrList.countSssrTop.data.forEach(function(valuenum,index){
-          self.option.series[0].data.forEach(function (valueoption, index) {
-            if (valuenum.swjgmc == valueoption.name) {
-              valueoption.hjoption = valuenum.hj;
-            }
-          })
-        });
-        self.echarts.registerMap('chengdu', self.chengduJson);
-        const chart = this.echarts.init(document.getElementById('cityMap'));
-        chart.setOption(this.option);
-      }
-    },
     methods: {
       //获取截止时间
       getTime: function () {
@@ -39955,6 +39922,45 @@
           chart.setOption(self.option);
         })
       }
+    },
+    watch: {
+      ssHs: function (data) {
+        this.gettj(data);
+        this.getTime();
+      },
+      cdmapAll:function(){
+        let self = this;
+        self.cdmapAll.AreaListList.forEach(function (valuearea, index) {
+          self.option.series[0].data.forEach(function (valueoption, index) {
+            if (valuearea.swjgmc == valueoption.name) {
+              valueoption.swjgmcoption = valuearea.swjgdm;
+            }
+          })
+        });
+        this.cdmapAll.sssrList.countQyhs.data.forEach(function(valuenum,index){
+          self.option.series[0].data.forEach(function (valueoption, index) {
+            if (valuenum.swjgmc == valueoption.name) {
+              valueoption.hsoption = valuenum.hs;
+            }
+          })
+        });
+        this.cdmapAll.sssrList.countSssrTop.data.forEach(function(valuenum,index){
+          self.option.series[0].data.forEach(function (valueoption, index) {
+            if (valuenum.swjgmc == valueoption.name) {
+              valueoption.hjoption = valuenum.hj;
+            }
+          })
+        });
+        self.echarts.registerMap('chengdu', self.chengduJson);
+        const chart = this.echarts.init(document.getElementById('cityMap'));
+        chart.setOption(this.option);
+      }
+    },
+    computed: {
+      ...mapState({
+        ssHs: state => state.index.ssHs,
+        cdmapAll: state => state.index.cdmapAll,
+      })
     }
   }
 </script>

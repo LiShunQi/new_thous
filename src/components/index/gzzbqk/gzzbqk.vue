@@ -6,9 +6,8 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+  import { mapState } from 'vuex'
   export default {
-    props: ['countSzzbBySzList'],
     name: 'gzzbqk',
     data () {
       return {
@@ -78,9 +77,18 @@
         }
       }
     },
+    mounted: function () {
+      this.gzzbqkFunction();
+    },
+    methods: {
+      gzzbqkFunction(){
+        let myChart = this.echarts.init(document.getElementById('gzzbqk'));
+        myChart.setOption(this.option);
+      }
+    },
     watch: {
       countSzzbBySzList: function () {
-        this.option.series[0].data = []
+        this.option.series[0].data = [];
         this.option.series[0].data.push ( {
           value: this.countSzzbBySzList.data.zzs, name: '增值税'
         });
@@ -93,14 +101,10 @@
         this.gzzbqkFunction();
       }
     },
-    mounted: function () {
-      this.gzzbqkFunction();
-    },
-    methods: {
-      gzzbqkFunction(){
-        var myChart = Vue.prototype.echarts.init(document.getElementById('gzzbqk'));
-        myChart.setOption(this.option);
-      }
+    computed: {
+      ...mapState({
+        countSzzbBySzList: state => state.index.countSzzbBySzList,
+      })
     }
   }
 </script>

@@ -27,9 +27,9 @@
 <script>
   import VDialog from "../../dialog/Modal"
   import VMoreten from './Moreten.vue'
+  import { mapState } from 'vuex'
   export default {
     name: 'Qsqy',
-    props: ['qsqyList','resetTab'],
     components:{
       VDialog,
       VMoreten,
@@ -273,10 +273,11 @@
             let self = this;
             self.dataInit('qsjt');
         },
-        resetTab: function () { //重置tab
-          this.tab1 = true;
-          this.tab2 = false;
-        }
+    },
+    computed: {
+      ...mapState({
+        qsqyList: state => state.index.qsqyList,
+      })
     }
   }
 </script>

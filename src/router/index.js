@@ -27,7 +27,7 @@ export default new Router({
       component: index
     },
     { //集团情况
-      path: '/jtqk',
+      path: '/jtqy',
       name: 'jtqk',
       component: jtqk
     },

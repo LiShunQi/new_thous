@@ -43,23 +43,14 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+  import { mapState } from 'vuex'
   export default {
-    props:['jt_total','jt_qyhs'], //统计
     name: 'jtqkTotal',
     data () {
       return {
         jt_tj:{}, //集团统计
         jt_mc: '', //集团名称
         jt_hs: 0, //集团企业户数
-      }
-    },
-    watch:{
-      jt_total:function() {
-        this.jt_tj = this.jt_total.data[0]; //集团统计
-      },
-      jt_qyhs: function () {
-        this.handleData();
       }
     },
     mounted: function () {
@@ -84,6 +75,20 @@
         });
         self.jt_hs = hs; //统计集团企业户数
       }
+    },
+    watch:{
+      jt_total:function() {
+        this.jt_tj = this.jt_total.data[0]; //集团统计
+      },
+      jt_qyhs: function () {
+        this.handleData();
+      }
+    },
+    computed: {
+      ...mapState({
+        jt_total: state => state.jtqy.jt_total,
+        jt_qyhs: state => state.jtqy.jt_qyhs,
+      })
     }
   }
 </script>

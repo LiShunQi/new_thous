@@ -5,10 +5,9 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: 'szsssrbh',
-    // 所需数据
-    props: ['szsr'],
     data () {
       return {
           option: {
@@ -198,6 +197,11 @@
       szsr: function () {
         this.szsssrbhFunction();
       }
+    },
+    computed: {
+      ...mapState({
+        szsr: state => state.jtqy.szsr,
+      })
     }
   }
 </script>

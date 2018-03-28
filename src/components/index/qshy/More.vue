@@ -10,9 +10,9 @@
   </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
  export default {
    name: 'Hyfbmodal',
-   props: ['charts_data'],
    data() {
      let self = this;
      return {
@@ -448,30 +448,30 @@
          ,ret2 = [] //data
          ,ret3 = [];
        //如果获取到了数据
-       if(self.charts_data){
+       if(self.qshyList){
          //行业分布
-         self.charts_data.data.hyfbList.slice(0,20).forEach((el,i,arr) => {
+         self.qshyList.data.hyfbList.slice(0,20).forEach((el,i,arr) => {
            ret1.push(el.hymc);
            ret2.push(el.hyhs);
          });
          self.option1.xAxis.data = ret1.slice(); ret1 = [];
          self.option1.series[0].data = ret2.slice(); ret2 = [];
          //入库情况
-         self.charts_data.data.rkqkList.slice(0,20).forEach((el,i,arr) => {
+         self.qshyList.data.rkqkList.slice(0,20).forEach((el,i,arr) => {
            ret1.push(el.hymc);
            ret2.push(el.hj);
          });
          self.option2.xAxis.data = ret1.slice(); ret1 = [];
          self.option2.series[0].data = ret2.slice(); ret2 = [];
          // 增长情况
-         self.charts_data.data.zzqkList.slice(0,20).forEach((el,i,arr) => {
+         self.qshyList.data.zzqkList.slice(0,20).forEach((el,i,arr) => {
            ret1.push(el.hymc);
            ret2.push(parseFloat(el.bl)*100);
          });
          self.option3.xAxis.data = ret1.slice(); ret1 = [];
          self.option3.series[0].data = ret2.slice(); ret2 = [];
          // 全市占比
-         self.charts_data.data.qszssList.slice(0,20).forEach((el,i,arr) => {
+         self.qshyList.data.qszssList.slice(0,20).forEach((el,i,arr) => {
            ret1.push(el.hymc);
            ret2.push(el.hj);
            ret3.push(el.ssje); //千户
@@ -483,10 +483,15 @@
      }
    },
    watch: {
-       charts_data: function () {
+     qshyList: function () {
          this.dataInit(1);
        }
-   }
+   },
+   computed: {
+     ...mapState({
+       qshyList: state => state.index.qshyList,
+     })
+   },
  }
 </script>
 <style scoped="">

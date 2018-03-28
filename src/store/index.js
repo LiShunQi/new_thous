@@ -7,16 +7,16 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 import index from './index/index.js';
-import jtqk from './jtqk/jtqk.js';
-import qyqk from './qyqk/qyqk.js';
+import jtqy from './jtqy/jtqy.js';
 import white from './white/white.js';
+import search from './search/search.js'
 
 export default new Vuex.Store({
   modules: {
     white: white,
     index: index,
-    jtqk: jtqk,
-    qyqk: qyqk
+    jtqy: jtqy,
+    search: search
   }
 });
 

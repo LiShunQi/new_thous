@@ -8,9 +8,9 @@
   </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: 'qysztbbh',
-    props: ['szsr'],
     data () {
       return {
           option: {
@@ -206,6 +206,11 @@
       szsr: function () {
         this.qysztbbhFun();
       }
+    },
+    computed: {
+      ...mapState({
+        szsr: state => state.jtqy.szsr,
+      })
     }
   }
 </script>

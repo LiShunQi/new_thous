@@ -18,7 +18,7 @@
       </div>
       </Col>
     </Row>
-    <Row style="margin-bottom: 10px;">
+    <Row style="margin-bottom: 10px;padding: 0 20px">
       <Col :xs="{ span: 4}" :lg="{ span: 3 }">
       <Dropdown class="dropdown " @on-click="toggle_qk">
         <a href="javascript:void(0)">
@@ -159,26 +159,20 @@
       },
       //情况切换
       toggle_qk: function (name) {
-        this.$emit('isjtqy',true);
         this.qk_text = name;
+
         switch (name) {
           case '整体情况':
-            this.$emit('headerJuck', {flore: 'oneflore', blooen: true});
-            this.$emit('init', {swjgdmChange: "", fast: '', last: ''});
-            sessionStorage.setItem("headerJuck", 'oneflore');
+            this.$router.push('/');
             break;
           case '集团情况':
-            this.$emit('headerJuck', {flore: 'twoflore', blooen: true});
-            sessionStorage.setItem("headerJuck", 'twoflore');
+            this.$router.push('/jtqy');
             break;
           case '企业情况':
-            this.$emit('headerJuck', {flore: 'treenflore', blooen: true});
-            sessionStorage.setItem("headerJuck", 'treenflore');
+            this.$router.push('/qyqk');
             break;
           case '数据白板':
-            this.$emit('headerJuck', {flore: 'lostFlore', blooen: true});
-            this.$emit('white_cf', null);
-            sessionStorage.setItem("headerJuck", 'lostFlore');
+            this.$router.push('/white');
             break;
         }
       },

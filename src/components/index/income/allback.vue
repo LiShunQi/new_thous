@@ -35,9 +35,9 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: 'allback',
-    props: ['ssHs'],
     data () {
       return {
         jtNum: '', //集团户数
@@ -87,6 +87,11 @@
         this.gettj(data);
         this.getTime();
       }
+    },
+    computed: {
+      ...mapState({
+        ssHs: state => state.index.ssHs,
+      })
     }
   }
 </script>

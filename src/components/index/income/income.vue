@@ -12,11 +12,10 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import VDialog from "../../dialog/Modal"
+  import { mapState } from 'vuex'
   export default {
-    props: ['tbsrqkbList'],
-    name: 'HelloWorld',
+    name: 'income',
     components: {
       VDialog
     },
@@ -149,6 +148,24 @@
         }
       }
     },
+    mounted: function () {
+      this.iconmFunction();//同比图
+    },
+    methods: {
+      iconmFunction(){//同比图
+        let self = this;
+        let myChart = self.echarts.init(document.getElementById('main'));
+        myChart.setOption(self.option);
+      },
+      modalChart: function () { //弹框图表
+        let self = this;
+        self.isShow = !self.isShow;
+        setTimeout(function () {
+          let myChart = Vue.prototype.echarts.init(document.getElementById('big_chart'));
+          myChart.setOption(self.option);
+        },300)
+      }
+    },
     watch: {
       tbsrqkbList: function () {
         let self = this;
@@ -165,24 +182,11 @@
         self.iconmFunction();
       }
     },
-    mounted: function () {
-      this.iconmFunction();//同比图
+    computed: {
+      ...mapState({
+        tbsrqkbList: state => state.index.tbsrqkbList,
+      })
     },
-    methods: {
-      iconmFunction(){//同比图
-        let self = this;
-        var myChart = Vue.prototype.echarts.init(document.getElementById('main'));
-        myChart.setOption(self.option);
-      },
-      modalChart: function () { //弹框图表
-        let self = this;
-        self.isShow = !self.isShow;
-        setTimeout(function () {
-          let myChart = Vue.prototype.echarts.init(document.getElementById('big_chart'));
-          myChart.setOption(self.option);
-        },300)
-      }
-    }
   }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

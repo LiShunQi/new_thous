@@ -37,5 +37,7 @@ export default {
     background-image: url(./assets/images/back.png);
     background-size: 100% 100%;
   }
-
+  .route_content{
+    padding: 10px 20px;
+  }
 </style>

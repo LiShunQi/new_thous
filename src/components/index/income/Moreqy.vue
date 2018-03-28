@@ -10,9 +10,9 @@
   </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: 'Hyfbmodal',
-    props: ['charts_data'],
     data() {
       let self = this;
       return {
@@ -452,36 +452,35 @@
           ,ret3 = []
           ,ret4 = [];
         //如果获取到了数据
-        if(self.charts_data){
+        if(self.sssrList){
           //区域户数
-          self.charts_data.countQyhs.data.forEach((el,i,arr) => {
+          self.sssrList.countQyhs.data.forEach((el,i,arr) => {
               ret1.push(el.swjgmc);
               ret2.push(el.hs);
           });
           self.option1.xAxis.data = ret1.slice(); ret1 = [];
           self.option1.series[0].data = ret2.slice(); ret2 = [];
           //入库情况
-          self.charts_data.countSssrTop.data.forEach((el,i,arr) => {
+          self.sssrList.countSssrTop.data.forEach((el,i,arr) => {
             ret1.push(el.swjgmc);
             ret2.push(el.hj);
           });
           self.option2.xAxis.data = ret1.slice(); ret1 = [];
           self.option2.series[0].data = ret2.slice(); ret2 = [];
           // 增长情况
-          self.charts_data.countSszfTop.data.forEach((el,i,arr) => {
+          self.sssrList.countSszfTop.data.forEach((el,i,arr) => {
             ret1.push(el.swjgmc);
             ret2.push(parseFloat(el.bl)*100);
           });
           self.option3.xAxis.data = ret1.slice(); ret1 = [];
           self.option3.series[0].data = ret2.slice(); ret2 = [];
           //分税种情况
-          self.charts_data.countQyszqk.data.forEach((el,i,arr) => {
+          self.sssrList.countQyszqk.data.forEach((el,i,arr) => {
             ret1.push(el.zzs); //增值税
             ret2.push(el.xfs); //消费税
             ret3.push(el.sds); //所得税
             ret4.push(el.swjgmc); //区域
           });
-
           self.option4.series[0].data = ret1.slice(); ret1 = [];
           self.option4.series[1].data = ret2.slice(); ret2 = [];
           self.option4.series[2].data = ret3.slice(); ret3 = [];
@@ -490,11 +489,16 @@
       }
     },
     watch: {
-      charts_data: function () {
+      sssrList: function () {
         let self = this;
         self.dataInit(1);
       }
-    }
+    },
+    computed: {
+      ...mapState({
+        sssrList: state => state.index.sssrList,
+      })
+    },
   }
 </script>
 <style scoped="">

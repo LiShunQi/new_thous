@@ -8,9 +8,9 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: 'qyfb',
-    props: ['jtqyssList'],
     data () {
       return {
         //chart 实体
@@ -331,6 +331,11 @@
       jtqyssList: function () {
         this.qyfbFunction();
       }
+    },
+    computed: {
+      ...mapState({
+        jtqyssList: state => state.jtqy.jtqyssList,
+      })
     }
   }
 </script>

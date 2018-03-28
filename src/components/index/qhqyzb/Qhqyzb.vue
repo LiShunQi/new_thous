@@ -1,14 +1,13 @@
 <template>
   <!--千户占比-->
   <div id="qhqyzb" class="qhqyzb__box">
-
     <h3 class="picture__title">千户集团占比概况</h3>
     <div id="qhqyzb_picture" class="qhqyzb_picture"></div>
   </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   export default {
-    props: ['countQhjtZbList'],
     name: 'Qhqyzb',
     data() {
       return {
@@ -86,12 +85,6 @@
         self.dataInit(self.option2);
       })
     },
-    watch:{
-      countQhjtZbList:function(){
-        let self = this;
-        self.dataInit(self.option2);
-      }
-    },
     methods: {
       dataInit: function (option) {
         let self = this;
@@ -111,6 +104,17 @@
         echarts.clear();
         echarts.setOption(option);
       }
+    },
+    watch:{
+      countQhjtZbList:function(){
+        let self = this;
+        self.dataInit(self.option2);
+      }
+    },
+    computed: {
+      ...mapState({
+        countQhjtZbList: state => state.index.countQhjtZbList,
+      })
     }
   }
 </script>

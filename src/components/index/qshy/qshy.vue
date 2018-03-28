@@ -29,8 +29,8 @@
 <script>
   import VDialog from "../../dialog/Modal"
   import VMore from './More.vue'
+  import { mapState } from 'vuex'
   export default {
-    props: ['qshyList','resetTab'],
     name: 'qshy',
     components:{
       VDialog,
@@ -213,15 +213,6 @@
         }
       }
     },
-    watch:{
-      qshyList: function(){
-        this.dataRender(this.qshy_option);
-      },
-      resetTab: function () {//重置tab
-        this.tab1 = true;
-        this.tab2 = false;
-      }
-    },
     mounted:function(){
         console.log('qshyList',this.qshyList);
       this.$nextTick(function () {
@@ -283,7 +274,17 @@
               return false;
         }
       }
-    }
+    },
+    watch:{
+      qshyList: function(){
+        this.dataRender(this.qshy_option);
+      },
+    },
+    computed: {
+      ...mapState({
+        qshyList: state => state.index.qshyList,
+      })
+    },
   }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

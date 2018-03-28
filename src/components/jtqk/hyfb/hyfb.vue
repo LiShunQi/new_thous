@@ -8,8 +8,8 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   export default {
-    props: ['szsr'],
     name: 'hyfb',
     data () {
       return {
@@ -428,6 +428,11 @@
         szsr: function () {
           this.hyfbFunction();
         }
+    },
+    computed: {
+      ...mapState({
+        szsr: state => state.jtqy.szsr,
+      })
     }
   }
 </script>
