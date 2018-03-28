@@ -44,6 +44,12 @@
         'v-qyszsssrybh': qyszsssrybh,
         'v-qysztbbh': qysztbbh,
         'v-tablemk': tablemk
+    },
+    mounted() {
+      let self = this;
+      self.$store.commit('SET_SHOW_TIME', false);
+      self.$store.commit('SET_PLACEHOLDER', '请输入企业名称');
+      self.$store.commit('SET_JTQY_FLAG', 'qy');
     }
   }
 </script>

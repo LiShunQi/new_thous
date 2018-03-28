@@ -5,6 +5,7 @@ import axios from '@/assets/common/resetAjax'
 
 const types = {
   SET_JTQY_DATA: 'SET_JTQY_DATA', // 设置集团企业情况
+  SET_JTQY_FLAG: 'SET_JTQY_FLAG', //在集团还是企业页面
 };
 
 const state = {
@@ -14,6 +15,7 @@ const state = {
   jtqk_gzszb: null,
   szsr: null,
   qyjbxx: null,
+  is_jtqy: '', //用于判断是在集团还是企业页面
 };
 
 const getters = {
@@ -28,17 +30,20 @@ const mutations = {
     state.jtqk_gzszb = res.data.data.szsr.data.sspie; //集团情况各种税占比
     state.szsr = res.data.data.szsr; //集团情况(包含2折线图，饼图，)
     state.qyjbxx = item; //企业基本信息
+  },
+  [types.SET_JTQY_FLAG](state, flag){
+    state.is_jtqy = flag;
   }
 };
 
 const actions = {
-  get_jtqy_data ({commit}, item) { //集团与企业详情
+  get_jtqy_data ({commit, state}, item) { //集团与企业详情
     let self = this;
 
     axios.post('/qhjtSsglJcsjb/sjtj_02',{
       djxh: item.djxh,
-      jtbz: self.juck == 'twoflore'?'Y':'N', //集团，企业区分标志
-      zfjglx: self.juck == 'twoflore'?'Z':'F', //中分机构类型
+      jtbz: state.is_jtqy === 'jt'?'Y':'N', //集团，企业区分标志
+      zfjglx: state.is_jtqy === 'jt'?'Z':'F', //中分机构类型
     }).then(function(res){
       if(res.data.code !== 100){
         return false;

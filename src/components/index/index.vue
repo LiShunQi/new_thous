@@ -18,7 +18,7 @@
         <v-qsqy></v-qsqy>
         </Col>
         <Col span="10">
-        <v-allback></v-allback>
+        <v-allback v-if="isShow_allback"></v-allback>
         <v-income></v-income>
         <v-tenprogress></v-tenprogress>
         </Col>
@@ -39,6 +39,7 @@
   import income from './income/income.vue'
   import tenprogress from './income/tenprogress.vue'
   import qshy from './qshy/qshy.vue'
+  import { mapState } from 'vuex'
   export default {
     name: 'index',
     components: {
@@ -59,7 +60,8 @@
     mounted: function () {
       let self = this;
       self.$nextTick(function () {
-        self.$store.dispatch('get_index_data', {kssj: '', jzsj: '', swjgdm: ''});
+          self.$store.commit('SET_SHOW_TIME', true);
+//        self.$store.dispatch('get_index_data', {kssj: '', jzsj: '', swjgdm: ''});
       });
     },
     methods: {
@@ -68,6 +70,11 @@
     watch: {
 
     },
+    computed: {
+      ...mapState({
+        isShow_allback: state => state.isShow_allback,
+      })
+    }
   }
 </script>
 <style scoped>

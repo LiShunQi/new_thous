@@ -3,11 +3,13 @@
     <Row>
       <Col span="24" class="text-center">
       <div class="positionRE">
-        <input type="text" class="textplace">
+        <input type="text" class="textplace" :placeholder="placeholder" v-model="search_keyword">
         <i class="iconfont icon-iconfontzhizuobiaozhun22"></i>
         <div class="list_jt" >
           <ul>
-            <li class="cursor"></li>
+            <li class="cursor" v-for="(index, item) in jtqy_list"
+                @click="handle_li_click(item)"
+                :key="index">{{item.nsrsbh}}</li>
           </ul>
         </div>
       </div>
@@ -19,11 +21,33 @@
   import { mapState } from 'vuex'
   export default {
       name: 'search',
+      data(){
+        return {
+          jtqy_list: [], //集团企业list
+          search_keyword: '', //搜索关键字
+        }
+      },
+      methods: {
+        handle_li_click(obj){
+          let self = this;
+          self.$store.dispatch('get_jtqy_data', obj);
+        }
+      },
       watch: {
-
+        search_keyword(data){
+          let self = this;
+          self.$store.dispatch('search',{keyword: data, flag: self.is_jtqy});
+        },
+        jtListName(data){
+          this.jtqy_list = data;
+        }
       },
       computed: {
-
+        ...mapState({
+          placeholder: state => state.search.placeholder,
+          jtListName: state => state.search.jtListName,
+          is_jtqy: state => state.jtqy.is_jtqy
+        })
       }
   }
 </script>

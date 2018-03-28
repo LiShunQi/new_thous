@@ -11,7 +11,25 @@ import jtqy from './jtqy/jtqy.js';
 import white from './white/white.js';
 import search from './search/search.js'
 
+const types = {
+  SET_SHOW_TIME: 'SET_SHOW_TIME',//控制时间区域显示隐藏
+};
+const state = {
+  isShow_allback: false, //控制allback显示隐藏
+  isShow_time: true, //控制时间区域显示隐藏
+};
+const mutations = {
+  [types.SET_SHOW_TIME](state, boolean) {
+    state.isShow_time = boolean;
+  }
+};
+const actions = {
+
+};
 export default new Vuex.Store({
+  state,
+  mutations,
+  actions,
   modules: {
     white: white,
     index: index,

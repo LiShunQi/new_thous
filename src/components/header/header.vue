@@ -32,7 +32,7 @@
       </Dropdown>
       </Col>
       <!--时间选择-->
-      <Col :xs="{ span: 5, offset: 12 }" :lg="{ span: 4, offset: 15 }" class="hoverMao" v-if="juck == 'oneflore'">
+      <Col :xs="{ span: 5, offset: 12 }" :lg="{ span: 4, offset: 15 }" class="hoverMao" v-if="isShow_time">
       <div style="width: 100%" class="text-center">
         <a href="javascript:void(0)" class=" colorBlue ">
           <i class="verticalMiddl iconfont icon-fanhui"></i>
@@ -66,7 +66,7 @@
       </div>
       </Col>
       <!--区域切换-->
-      <Col :xs="{ span: 3}" :lg="{ span: 2 }" class="right" v-if="juck == 'oneflore'">
+      <Col :xs="{ span: 3}" :lg="{ span: 2 }" class="right" v-if="isShow_time">
       <Dropdown class="dropdown">
         <a href="javascript:void(0)">
           {{nameMc}}
@@ -88,9 +88,8 @@
 <script>
   import Cookie from '../../assets/common/cookie'
   import eventBus from '../../assets/common/eventBus'
+  import { mapState } from 'vuex'
   export default {
-      //juck 用于判断是否显示时间选择，区域切换
-    props: ['AreaListList','juck'],
     name: 'headers',
     data() {
       return {
@@ -108,12 +107,6 @@
         qk_obj: [{name: '整体情况'}, {name: '集团情况'}, {name: '企业情况'}, {name: '数据白板'}],
         qk_text: '整体情况', //情况
         nameMc: '全成都'
-      }
-    },
-    watch: {
-      //实时时间显示
-      now: function () {
-        this.time = this.tool.toDateString(this.now, 'yyyy-MM-dd HH:mm:ss');
       }
     },
     mounted: function () {
@@ -139,7 +132,8 @@
       self.curUser = Cookie.getCookie('username');
       eventBus.$on('name', function (val) {
         self.nameMc = val;
-      })
+      });
+      console.log(self.isShow_time)
     },
     methods: {
       //时间弹框
@@ -213,14 +207,26 @@
         this.shangLast = this.replacePos(this.datalast, 4, nummer);
       },
       replacePos: function (strObj, pos, replacetext) {//转换本期的时间函数
-        var str = strObj.substr(0, pos - 1) + replacetext + strObj.substring(pos, strObj.length);
+        let str = strObj.substr(0, pos - 1) + replacetext + strObj.substring(pos, strObj.length);
         return str;
       },
       sure: function () {//时间模糊搜索
         this.isShow = false;
         this.$emit('init', {swjgdmChange: this.swjgdm, fast: this.datafast, last: this.datalast});
       }
-    }
+    },
+    watch: {
+      //实时时间显示
+      now: function () {
+        this.time = this.tool.toDateString(this.now, 'yyyy-MM-dd HH:mm:ss');
+      }
+    },
+    computed: {
+      ...mapState({
+        AreaListList: state => state.index.AreaListList,
+        isShow_time: state => state.isShow_time,
+      })
+    },
   }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

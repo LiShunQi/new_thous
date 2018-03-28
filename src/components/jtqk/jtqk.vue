@@ -56,6 +56,12 @@
           'v-szsssrbh': szsssrbh,
           'v-sztbbh': sztbbh,
           'v-jtcyqy': jtcyqy
-      }
+      },
+    mounted(){
+        let self = this;
+        self.$store.commit('SET_SHOW_TIME', false);
+        self.$store.commit('SET_PLACEHOLDER', '请输入集团名称');
+        self.$store.commit('SET_JTQY_FLAG', 'jt');
+    }
   }
 </script>

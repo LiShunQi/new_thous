@@ -30,7 +30,8 @@
       mounted() {
           let self = this;
           self.$nextTick(() => {
-//              self.$store.dispatch('get_white_condition_data');
+            self.$store.commit('SET_SHOW_TIME', false);
+//            self.$store.dispatch('get_white_condition_data');
           })
       }
   }
