@@ -1,10 +1,5 @@
 <template>
   <div class="indexback">
-    <!--头部-->
-    <v-userheader @init="init" v-bind:AreaListList="AreaListList"
-                  v-on:isjtqy="isjtqy"
-                  @white_cf="white_data_condition"
-                  v-on:headerJuck="juckFuncion"  :juck="juck"></v-userheader>
     <!--第一层页面-->
     <Row v-if="juck == 'oneflore'">
       <Row class=" flourOne">
@@ -32,125 +27,30 @@
         </Col>
       </Row>
     </Row>
-    <!--第二层页面-->
-    <Row>
-      <Row v-if="serchShow">
-        <Col span="24" class="text-center">
-        <div class="positionRE">
-          <input type="text" class="textplace" v-model="search" v-bind:placeholder="placeholder">
-          <i class="iconfont icon-iconfontzhizuobiaozhun22"></i>
-          <div class="list_jt" v-bind:class="{activeJt:jtListName.length}">
-            <ul>
-              <li v-for="item in jtListName " @click="jtDtail(item)" class="cursor">{{item.nsrmc}}</li>
-            </ul>
-          </div>
-        </div>
-        </Col>
-      </Row>
-      <!--集团情况-->
-      <Row class="mt50" v-if="isShowjt">
-        <Row>
-          <Col span="24" style="height:125px;">
-          <v-jtqktotal v-bind:jt_total="jt_total" :jt_qyhs="jt_qyhs"></v-jtqktotal>
-          </Col>
-        </Row>
-        <Row class="mt20" :gutter="16">
-          <Col span="12" style="height:350px;">
-          <v-qyfb v-bind:jtqyssList="jtqyssList"></v-qyfb>
-          </Col>
-          <Col span="12" style="height:350px;">
-          <v-hyfb :szsr="szsr"></v-hyfb>
-          </Col>
-        </Row>
-        <Row class="mt20" style="background-color: #093a72">
-          <Col span="6" style="height:300px;">
-          <v-gzzbqks :jtqk_gzszb= 'jtqk_gzszb'></v-gzzbqks>
-          </Col>
-          <Col span="9" style="height:300px;">
-          <v-szsssrbh :szsr="szsr"></v-szsssrbh>
-          </Col>
-          <Col span="9" style="height:300px;">
-          <v-sztbbh :szsr="szsr"></v-sztbbh>
-          </Col>
-        </Row>
-        <Row class="mt20">
-          <Col span="24" style="height:100%">
-          <v-jtcyqy></v-jtcyqy>
-          </Col>
-        </Row>
-      </Row>
-      <!--企业情况-->
-      <Row v-if="isShowqy" class="mt30">
-        <Row :gutter="16">
-          <Col span="12" style="height: 280px">
-          <v-qyjbxx :qyjbxx="qyjbxx"></v-qyjbxx>
-          </Col>
-          <Col span="12" style="height: 280px">
-          <v-qyszzb :jtqk_gzszb="jtqk_gzszb"></v-qyszzb>
-          </Col>
-        </Row>
-        <Row class="mt20 qyqk__line-box">
-          <Col span="12" style="height: 300px">
-          <v-qyszsssrybh :szsr="szsr"></v-qyszsssrybh>
-          </Col>
-          <Col span="12" style="height: 300px">
-          <v-qysztbbh :szsr="szsr"></v-qysztbbh>
-          </Col>
-        </Row>
-        <Row class="mt20">
-          <Col span="24" style="height:500px;">
-          <v-tablemk></v-tablemk>
-          </Col>
-        </Row>
-      </Row>
-    </Row>
-    <!--第三层页面-->
-    <Row v-if="juck == 'lostFlore'">
-      <Row>
-        <Col span="24">
-        <v-condition :white_c="white_c" @white_s="white_data_search"></v-condition>
-        </Col>
-      </Row>
-      <Row class="mt20" v-if="jsShow_whie">
-        <v-Pie :white_qyzb="white_qyzb" :white_szzb="white_szzb"></v-Pie>
-      </Row>
-      <Row class="mt20" v-if="jsShow_whie">
-        <v-line :white_zxt="white_zxt"></v-line>
-      </Row>
-    </Row>
   </div>
 </template>
 
 <script>
-  import Header from '../header/header.vue'
-  import Qhqyzb from './allindex/qhqyzb/Qhqyzb.vue'
-  import income from './allindex/income/income.vue'
-  import map from './allindex/map/cdMap.vue'
-  import allback from './allindex/income/allback.vue'
-  import tenprogress from './allindex/income/tenprogress.vue'
-  import qshy from './allindex/qshy/qshy.vue'
-  import gzzbqk from './allindex/gzzbqk/gzzbqk.vue'
-  import gzzbqks from './jtqk/gzzbqk/gzzbqks.vue'
-  import Qsqy from './allindex/qsqy/Qsqy.vue'
-  import qyfb from './jtqk/qyfb/qyfb.vue'
-  import hyfb from './jtqk/hyfb/hyfb.vue'
-  import szsssrbh from './jtqk/szsssrbh/szsssrbh.vue'
-  import sztbbh from './jtqk/sztbbh/sztbbh.vue'
-  import jtqkTotal from  './jtqk/jtqkTotal/jtqkTotal.vue'
-  import qyjbxx from './qyqk/qyjbxx/qyjbxx.vue'
-  import qyszzb from './qyqk/qyszzb/qyszzb.vue'
-  import VQyszzb from "./qyqk/qyszzb/qyszzb.vue";
-  import qyszsssrybh from "./qyqk/qyszsssrybh/qyszsssrybh.vue"
-  import VQyszsssrybh from "./qyqk/qyszsssrybh/qyszsssrybh"
-  import qysztbbh from "./qyqk/qysztbbh/qysztbbh.vue"
-  import VQysztbbh from "./qyqk/qysztbbh/qysztbbh";
-  import condition from "./whiteboard/condition";
-  import Pie from "./whiteboard/Pie";
-  import line from "./whiteboard/line";
-  import jtcyqy from  './jtqk/jtcyqy/jtcyqy.vue'
-  import Tablemk from './qyqk/tablemk/Tablemk.vue'
+  import Qhqyzb from './qhqyzb/Qhqyzb.vue'
+  import map from './map/cdMap.vue'
+  import gzzbqk from './gzzbqk/gzzbqk.vue'
+  import Qsqy from './qsqy/Qsqy.vue'
+  import allback from './income/allback.vue'
+  import income from './income/income.vue'
+  import tenprogress from './income/tenprogress.vue'
+  import qshy from './qshy/qshy.vue'
   export default {
     name: 'index',
+    components: {
+      'v-qhqyzb': Qhqyzb,
+      'v-map': map,
+      'v-gzzbqk': gzzbqk,
+      'v-qsqy': Qsqy,
+      'v-allback': allback,
+      'v-income': income,
+      'v-tenprogress': tenprogress,
+      'v-qshy': qshy,
+    },
     data () {
       return {
         juck: 'oneflore',
@@ -185,28 +85,6 @@
         resetTab: '', //是否重置tab
       }
     },
-    watch: {
-      juck: function () {
-        this.juck = sessionStorage.getItem("headerJuck");
-        if (this.juck == 'oneflore' || this.juck == 'lostFlore') {
-          this.serchShow = false;
-        } else {
-          this.placeholder = this.juck == 'twoflore' ? '请输入集团名称' : '请输入企业税号或者纳税人名称';
-          this.serchShow = true;
-        }
-      },
-      search: function (cur, old) {
-        let self = this;
-        setTimeout(function () {
-          if (self.search != cur) {
-            return false;
-          }else if(self.search == self.clickJTlist){
-            return false;
-          }
-          self.seartch();
-        }, 500);
-      }
-    },
     mounted: function () {
       let self = this;
       self.$nextTick(function () {
@@ -216,7 +94,7 @@
         }
         if(self.juck === 'oneflore'){
             //切换到首页再发请求
-          self.init({swjgdmChange:"",fast:'',last:''});
+//          self.init({swjgdmChange:"",fast:'',last:''});
         }else if(self.juck === 'lostFlore'){
             //如果当前是在数据白板，刷新时及时请求地区，行业。
             self.white_data_condition();
@@ -336,32 +214,28 @@
         }
       }
     },
-    components: {
-      'v-userheader': Header,
-      'v-income': income,
-      'v-allback': allback,
-      'v-gzzbqk': gzzbqk,
-      'v-gzzbqks': gzzbqks,
-      'v-qhqyzb': Qhqyzb,
-      'v-qsqy': Qsqy,
-      'v-tenprogress': tenprogress,
-      'v-qshy': qshy,
-      'v-map': map,
-      'v-qyfb': qyfb,
-      'v-hyfb': hyfb,
-      'v-szsssrbh': szsssrbh,
-      'v-sztbbh': sztbbh,
-      'v-jtqktotal': jtqkTotal,
-      'v-jtcyqy': jtcyqy,
-      'v-qyjbxx': qyjbxx,
-      'v-qyszzb': qyszzb,
-      'v-qyszsssrybh': qyszsssrybh,
-      'v-qysztbbh': qysztbbh,
-      'v-condition': condition,
-      'v-Pie': Pie,
-      'v-line': line,
-      'v-tablemk': Tablemk
-    }
+    watch: {
+      juck: function () {
+        this.juck = sessionStorage.getItem("headerJuck");
+        if (this.juck == 'oneflore' || this.juck == 'lostFlore') {
+          this.serchShow = false;
+        } else {
+          this.placeholder = this.juck == 'twoflore' ? '请输入集团名称' : '请输入企业税号或者纳税人名称';
+          this.serchShow = true;
+        }
+      },
+      search: function (cur, old) {
+        let self = this;
+        setTimeout(function () {
+          if (self.search != cur) {
+            return false;
+          }else if(self.search == self.clickJTlist){
+            return false;
+          }
+          self.seartch();
+        }, 500);
+      }
+    },
   }
 </script>
 <style scoped>
@@ -441,15 +315,13 @@
   }
 
   .indexback {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
     padding: 10px 20px;
     overflow-y: scroll;
-    background-image: url(../../assets/images/back.png);
-    background-size: 100% 100%;
   }
 
   .cf {

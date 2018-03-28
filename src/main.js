@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store/'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 import './assets/common/vue-touch'//移动端监听touch
@@ -10,11 +11,11 @@ import './assets/commoncss/common.css'//公用css
 import './assets/fonts/iconfont.css'//font css
 import Tool from './assets/common/tool.js'; //工具
 import './assets/common/jquery.min'//font css
-import './assets/common/reseteAjax'//重写ajax
+// import './assets/common/reseteAjax'//重写ajax
 import promise from 'es6-promise'
 promise.polyfill();//axios兼容ie
-import axios from 'axios'
-Vue.prototype.$http = axios;
+// import axios from 'axios'
+// Vue.prototype.$http = axios;
 
 Vue.prototype.echarts = require('echarts');
 Vue.prototype.tool = Tool;
@@ -82,6 +83,7 @@ Vue.filter('trunc', function(value,num) {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>'
