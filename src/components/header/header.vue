@@ -111,23 +111,13 @@
     },
     mounted: function () {
       let self = this;
+
+      self.qk_text = self.get_router_name(self.$route.name);
+      //实时时间
       setInterval(function () {
         self.now = new Date().getTime();
-        switch (sessionStorage.getItem("headerJuck")) {
-          case 'oneflore':
-            self.qk_text = '整体情况';
-            break;
-          case 'twoflore':
-            self.qk_text = '集团情况';
-            break;
-          case 'treenflore':
-            self.qk_text = '企业情况';
-            break;
-          case 'lostFlore':
-            self.qk_text = '数据白板';
-            break;
-        }
       }, 1000);
+
       //获取用户名
       self.curUser = Cookie.getCookie('username');
       eventBus.$on('name', function (val) {
@@ -160,12 +150,15 @@
             this.$router.push('/');
             break;
           case '集团情况':
+            this.$store.commit('SET_ISSHOW_CONTENT', false);
             this.$router.push('/jtqy');
             break;
           case '企业情况':
+            this.$store.commit('SET_ISSHOW_CONTENT', false);
             this.$router.push('/qyqk');
             break;
           case '数据白板':
+            this.$store.commit('SET_IS_SHOW_CONTENT', false);
             this.$router.push('/white');
             break;
         }
@@ -192,16 +185,18 @@
         }else{
           this.$emit('headerJuck', {flore: 'oneflore', blooen: false});
         }
-        this.$emit('init', {swjgdmChange: swjgdm? swjgdm:'', fast: this.datafast, last: this.datalast}); //后台处理 % 号
+        this.$store.dispatch('get_index_data', {swjgdmChange: swjgdm? swjgdm:'', kssj: this.kssj, jzsj: this.jzsj});
       },
       datafastFun: function (e) {//时间起
-        this.datafast = e;
+        this.$store.commit('SET_TIME',{time: e, flg: 'kssj'});
+
         eventBus.$emit('datafast', this.datafast);
         let nummer = Number(this.datafast.substring(3, 4)) - 1;
         this.shangFast = this.replacePos(this.datafast, 4, nummer);
       },
       datalastFun: function (e) {//时间止
-        this.datalast = e;
+        this.$store.commit('SET_TIME',{time: e, flg: 'jzsj'});
+
         eventBus.$emit('datalast', this.datalast);
         let nummer = Number(this.datalast.substring(3, 4)) - 1;
         this.shangLast = this.replacePos(this.datalast, 4, nummer);
@@ -212,7 +207,27 @@
       },
       sure: function () {//时间模糊搜索
         this.isShow = false;
-        this.$emit('init', {swjgdmChange: this.swjgdm, fast: this.datafast, last: this.datalast});
+        this.$store.dispatch('get_index_data', {swjgdmChange: this.swjgdm, kssj: this.kssj, jzsj: this.jzsj});
+      },
+      get_router_name(name){
+          let str = '';
+          switch (name){
+            case 'index':
+                str = '整体情况';
+                break;
+            case 'jtqk':
+              str = '集团情况';
+              break;
+            case 'qyqk':
+              str = '企业情况';
+              break;
+            case 'white':
+              str = '数据白板';
+              break;
+            default:
+              str = '整体情况';
+          }
+          return str;
       }
     },
     watch: {
@@ -225,6 +240,8 @@
       ...mapState({
         AreaListList: state => state.index.AreaListList,
         isShow_time: state => state.isShow_time,
+        kssj: state => state.index.kssj,//时间
+        jzsj: state => state.index.jzsj,
       })
     },
   }

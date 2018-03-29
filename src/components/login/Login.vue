@@ -35,6 +35,7 @@
 </template>
 <script>
   import Cookie from '../../assets/common/cookie'
+  import { mapState } from 'vuex'
   export default {
       name: 'Login',
       data() {
@@ -87,7 +88,18 @@
           }
           this.isSelect = false;
         }
-      }
+      },
+      beforeRouteEnter (to, from, next) {
+        next(vm => {
+          // 通过 `vm` 访问组件实例
+          vm.$store.commit('SET_ISSHOW_HEADER', false);
+        })
+      },
+      beforeRouteLeave (to, from , next) {
+        let self = this;
+        self.$store.commit('SET_ISSHOW_HEADER', true);
+        next();
+      },
   }
 </script>
 <style scoped="">

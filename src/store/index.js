@@ -13,14 +13,23 @@ import search from './search/search.js'
 
 const types = {
   SET_SHOW_TIME: 'SET_SHOW_TIME',//控制时间区域显示隐藏
+  SET_SHOW_ALLBACK: 'SET_SHOW_ALLBACK',//控制时间区域显示隐藏
+  SET_ISSHOW_HEADER: 'SET_ISSHOW_HEADER',//控制时间区域显示隐藏
 };
 const state = {
   isShow_allback: false, //控制allback显示隐藏
   isShow_time: true, //控制时间区域显示隐藏
+  isShow_header: true, //控制时间区域显示隐藏
 };
 const mutations = {
   [types.SET_SHOW_TIME](state, boolean) {
     state.isShow_time = boolean;
+  },
+  [types.SET_SHOW_ALLBACK](state, boolean){
+    state.isShow_allback = boolean;
+  },
+  [types.SET_ISSHOW_HEADER](state, boolean){
+    state.isShow_header = boolean;
   }
 };
 const actions = {

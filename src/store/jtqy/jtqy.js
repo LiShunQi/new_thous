@@ -6,6 +6,7 @@ import axios from '@/assets/common/resetAjax'
 const types = {
   SET_JTQY_DATA: 'SET_JTQY_DATA', // 设置集团企业情况
   SET_JTQY_FLAG: 'SET_JTQY_FLAG', //在集团还是企业页面
+  SET_ISSHOW_CONTENT: 'SET_ISSHOW_CONTENT', //设置isShow_content
 };
 
 const state = {
@@ -16,6 +17,7 @@ const state = {
   szsr: null,
   qyjbxx: null,
   is_jtqy: '', //用于判断是在集团还是企业页面
+  isShow_content: false, //查询成功在显示
 };
 
 const getters = {
@@ -33,6 +35,9 @@ const mutations = {
   },
   [types.SET_JTQY_FLAG](state, flag){
     state.is_jtqy = flag;
+  },
+  [types.SET_ISSHOW_CONTENT](state, boolean){
+    state.isShow_content = boolean;
   }
 };
 
@@ -51,6 +56,7 @@ const actions = {
       console.log('集团情况或企业情况',res.data.data);
 
       commit(types.SET_JTQY_DATA, res, item);
+      commit(types.SET_ISSHOW_CONTENT, true);
     })
   },
 };

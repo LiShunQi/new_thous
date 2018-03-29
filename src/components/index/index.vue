@@ -20,7 +20,7 @@
         <Col span="10">
         <v-allback v-if="isShow_allback"></v-allback>
         <v-income></v-income>
-        <v-tenprogress></v-tenprogress>
+        <v-tenprogress v-if="!isShow_allback"></v-tenprogress>
         </Col>
         <Col span="7">
         <v-qshy></v-qshy>

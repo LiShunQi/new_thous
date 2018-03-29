@@ -3,7 +3,7 @@
     <!--search 模块-->
     <v-search></v-search>
     <!--企业情况-->
-    <Row  class="mt30">
+    <Row  class="mt30" v-if="isShow_content && (is_jtqy === 'qy')">
       <Row :gutter="16">
         <Col span="12" style="height: 280px">
         <v-qyjbxx ></v-qyjbxx>
@@ -35,6 +35,7 @@
   import qyszsssrybh from './qyszsssrybh/qyszsssrybh.vue'
   import qysztbbh from './qysztbbh/qysztbbh.vue'
   import tablemk from './tablemk/Tablemk.vue'
+  import { mapState } from 'vuex'
   export default {
     name: 'qyqk',
     components: {
@@ -50,6 +51,12 @@
       self.$store.commit('SET_SHOW_TIME', false);
       self.$store.commit('SET_PLACEHOLDER', '请输入企业名称');
       self.$store.commit('SET_JTQY_FLAG', 'qy');
+    },
+    computed: {
+      ...mapState({
+        isShow_content: state => state.jtqy.isShow_content,
+        is_jtqy: state => state.jtqy.is_jtqy, //当前页面标志
+      })
     }
   }
 </script>

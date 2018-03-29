@@ -5,6 +5,7 @@ import axios from '@/assets/common/resetAjax'
 
 const types = {
   SET_INDEX_DATA: 'SET_INDEX_DATA', //设置index各版块的数据
+  SET_TIME: 'SET_TIME', //保存选定时间
 };
 
 const state = {
@@ -17,6 +18,9 @@ const state = {
   sssrList: null,
   qshyList: null,
   AreaListList: null,
+  kssj: '', //时间起
+  jzsj: '', //时间止
+  jz_ny: '', //截止年月
 };
 
 const getters = {
@@ -34,6 +38,18 @@ const mutations = {
     state.qshyList = res.data.data.qshy;//前十行业
     state.AreaListList = res.data.data.AreaList;//地区值
     state.cdmapAll = {AreaListList:self.AreaListList,sssrList:self.sssrList}; //地图数据
+  },
+  [types.SET_TIME](state, obj){
+    switch (obj.flg){
+      case 'kssj':
+        state.kssj = obj.time;
+        break;
+      case 'jzsj':
+        state.jzsj = obj.time;
+        break;
+      default:
+        return;
+    }
   }
 };
 
@@ -41,7 +57,12 @@ const actions = {
   get_index_data({commit}, obj){ //初始化首页数据包
     let self = this;
 
-    axios.post('/qhjtSsglJcsjb/sjtj_01', {kssj: obj.fast, jzsj: obj.last, swjgdm:obj.swjgdmChange}).then(function (res) {
+    axios.post('/qhjtSsglJcsjb/sjtj_01', {
+      kssj: obj.kssj,
+      jzsj: obj.jzsj,
+      swjgdm:obj.swjgdmChange
+    })
+      .then(function (res) {
       console.log('index', res);
 
       if(res.data.code === 100){

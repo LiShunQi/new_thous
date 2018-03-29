@@ -6,6 +6,7 @@ import axios from '@/assets/common/resetAjax'
 const types = {
   SET_C_D: 'SET_C_D', //数据白板查询条件数据,赋值
   SET_RESULT_DATA: 'SET_RESULT_DATA', // 数据白板查询结果数据,赋值
+  SET_IS_SHOW_CONTENT: 'SET_IS_SHOW_CONTENT', //
 };
 
 const state = {
@@ -13,6 +14,7 @@ const state = {
   white_qyzb: null, //区域占比
   white_szzb: null, //税种占比
   white_zxt: null, //折线图
+  is_show_content: false, //内容显示隐藏
 };
 
 const getters = {
@@ -27,6 +29,9 @@ const mutations = {
     state.white_qyzb = obj.hysr.data;
     state.white_szzb = obj.szsr.data.sspie;
     state.white_zxt = obj.szsr;
+  },
+  [types.SET_IS_SHOW_CONTENT](state, boolean){
+    state.is_show_content = boolean;
   }
 };
 
@@ -55,6 +60,7 @@ const actions = {
       .then((res) => {
         if(res.data.code === 100){
           console.log('数据白板查询结果', res);
+          commit(types.SET_IS_SHOW_CONTENT, true);
           commit(types.SET_RESULT_DATA, res.data.data);
         }
       })

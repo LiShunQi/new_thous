@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!--头部-->
-    <v-header></v-header>
+    <v-header v-if="isShow_header"></v-header>
     <!--路由-->
     <div class="route_content">
       <router-view></router-view>
@@ -11,14 +11,21 @@
 
 <script>
 import header from './components/header/header.vue'
+import { mapState } from 'vuex'
 export default {
   name: 'App',
   components: {
     'v-header': header,
   },
   mounted: function () {
-    this.$nextTick(function () {
+    let self = this;
+    self.$nextTick(function () {
 
+    })
+  },
+  computed: {
+    ...mapState({
+      isShow_header: state => state.isShow_header,
     })
   }
 }
@@ -30,6 +37,7 @@ export default {
     /*height: 100%;*/
   /*}*/
   #app {
+    min-height: 100vh;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

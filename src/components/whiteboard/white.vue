@@ -1,5 +1,5 @@
 <template>
-  <div class="white_box">
+  <div class="white_box" >
     <!--第三层页面-->
     <Row>
       <Row>
@@ -7,10 +7,10 @@
         <v-condition></v-condition>
         </Col>
       </Row>
-      <Row class="mt20">
+      <Row class="mt20" v-if="is_show_content">
         <v-pie></v-pie>
       </Row>
-      <Row class="mt20">
+      <Row class="mt20" v-if="is_show_content">
         <v-line></v-line>
       </Row>
     </Row>
@@ -20,6 +20,7 @@
   import condition from './condition.vue'
   import pie from './Pie.vue'
   import line from './line.vue'
+  import { mapState } from 'vuex'
   export default {
       name: 'white',
       components: {
@@ -33,6 +34,11 @@
             self.$store.commit('SET_SHOW_TIME', false);
 //            self.$store.dispatch('get_white_condition_data');
           })
+      },
+      computed: {
+        ...mapState({
+          is_show_content: state => state.white.is_show_content,
+        })
       }
   }
 </script>

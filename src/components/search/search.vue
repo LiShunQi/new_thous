@@ -5,7 +5,7 @@
       <div class="positionRE">
         <input type="text" class="textplace" :placeholder="placeholder" v-model="search_keyword">
         <i class="iconfont icon-iconfontzhizuobiaozhun22"></i>
-        <div class="list_jt" >
+        <div class="list_jt" v-show="jtqy_list.length >= 1">
           <ul>
             <li class="cursor" v-for="(index, item) in jtqy_list"
                 @click="handle_li_click(item)"
@@ -44,9 +44,9 @@
       },
       computed: {
         ...mapState({
-          placeholder: state => state.search.placeholder,
-          jtListName: state => state.search.jtListName,
-          is_jtqy: state => state.jtqy.is_jtqy
+          placeholder: state => state.search.placeholder, //pleacholder显示text
+          jtListName: state => state.search.jtListName, //后台返回数据列表
+          is_jtqy: state => state.jtqy.is_jtqy, //当前页面标志
         })
       }
   }

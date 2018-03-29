@@ -39860,8 +39860,8 @@
       //获取截止时间
       getTime: function () {
         let self = this;
-        if (sessionStorage.getItem('lastTime')) {
-          self.lastTime = self.tool.toDateString(sessionStorage.getItem('lastTime'), 'yyyy年MM月');
+        if (self.jzsj) { //如果截止时间选了值，就取选定值
+          self.lastTime = self.tool.toDateString(self.jzsj, 'yyyy年MM月');
         } else {
           self.lastTime = self.tool.toDateString(new Date(), 'yyyy年MM月');
         }
@@ -39899,7 +39899,8 @@
             self.changeareas = true;
             self.$emit('indexJuck', true);
             eventBus.$emit('name', '全成都');
-            self.$emit('init', {swjgdmChange: '', fast: self.datafast, last: self.datalast});
+            self.$store.commit('SET_SHOW_ALLBACK', false);
+            self.$store.dispatch('get_index_data', {swjgdmChange: '', kssj: self.kssj, jzsj: self.jzsj});
             self.option.series[0].data.forEach(function (v, index) {
                 v.selected = false;
             });
@@ -39909,7 +39910,8 @@
             self.changeName = maparams.data.name;
             self.$emit('indexJuck', false);
             eventBus.$emit('name', maparams.data.name);
-            self.$emit('init', {swjgdmChange: maparams.data.swjgmcoption, fast: self.datafast, last: self.datalast});
+            self.$store.commit('SET_SHOW_ALLBACK', true);
+//            self.$store.dispatch('get_index_data', {swjgdmChange: maparams.data.swjgmcoption, kssj: self.kssj, jzsj: self.jzsj});
             self.option.series[0].data.forEach(function (v, index) {
               if (maparams.data.name == v.name) {
                 v.selected = true;
@@ -39960,6 +39962,8 @@
       ...mapState({
         ssHs: state => state.index.ssHs,
         cdmapAll: state => state.index.cdmapAll,
+        kssj: state => state.index.kssj,//时间
+        jzsj: state => state.index.jzsj,
       })
     }
   }

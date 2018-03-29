@@ -3,7 +3,7 @@
     <!--search 模块-->
     <v-search></v-search>
     <!--集团情况-->
-    <Row class="mt50">
+    <Row class="mt50" v-if="isShow_content && (is_jtqy === 'jt')">
       <Row>
         <Col span="24" style="height:125px;">
         <v-jtqktotal ></v-jtqktotal>
@@ -45,6 +45,7 @@
   import szsssrbh from './szsssrbh/szsssrbh.vue'
   import sztbbh from './sztbbh/sztbbh.vue'
   import jtcyqy from './jtcyqy/jtcyqy.vue'
+  import { mapState } from 'vuex'
   export default {
       name: 'jtqy',
       components: {
@@ -62,6 +63,12 @@
         self.$store.commit('SET_SHOW_TIME', false);
         self.$store.commit('SET_PLACEHOLDER', '请输入集团名称');
         self.$store.commit('SET_JTQY_FLAG', 'jt');
+    },
+    computed: {
+      ...mapState({
+        isShow_content: state => state.jtqy.isShow_content,
+        is_jtqy: state => state.jtqy.is_jtqy, //当前页面标志
+      })
     }
   }
 </script>
