@@ -45,7 +45,18 @@
             password: '', //密码
           }
       },
-      mounted: function () {
+      beforeRouteEnter (to, from, next) {
+        next(vm => {
+          // 通过 `vm` 访问组件实例
+          vm.$store.commit('SET_ISSHOW_HEADER', false);
+        })
+      },
+      beforeRouteLeave (to, from , next) {
+        let self = this;
+        self.$store.commit('SET_ISSHOW_HEADER', true);
+        next();
+      },
+      mounted() {
           //初始化判断是否记住密码
           this.isRemenber();
       },
@@ -88,17 +99,6 @@
           }
           this.isSelect = false;
         }
-      },
-      beforeRouteEnter (to, from, next) {
-        next(vm => {
-          // 通过 `vm` 访问组件实例
-          vm.$store.commit('SET_ISSHOW_HEADER', false);
-        })
-      },
-      beforeRouteLeave (to, from , next) {
-        let self = this;
-        self.$store.commit('SET_ISSHOW_HEADER', true);
-        next();
       },
   }
 </script>

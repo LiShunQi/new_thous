@@ -41,9 +41,9 @@ export default {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /*background-color: #06318A;*/
-    background-image: url(./assets/images/back.png);
-    background-size: 100% 100%;
+    background-color: #063380;
+    /*background-image: url(./assets/images/back.png);*/
+    /*background-size: 100% 100%;*/
   }
   .route_content{
     padding: 10px 20px;
