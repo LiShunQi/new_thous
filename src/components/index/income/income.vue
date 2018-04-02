@@ -22,6 +22,8 @@
     data () {
       return {
         isShow: false,
+        myChart1: null,
+        myChart2: null,
         option: {
           title: {
             text: '同比收入情况比',
@@ -148,21 +150,36 @@
         }
       }
     },
-    mounted: function () {
-      this.iconmFunction();//同比图
+    mounted () {
+      let self = this;
+      self.$nextTick(function () {
+        self.myChart1 = self.echarts.init(document.getElementById('main'));
+
+        self.iconmFunction();//同比图
+      })
+    },
+    beforeDestroy(){
+      if(!this.myChart1 && !this.myChart2){
+          return ;
+      }
+      this.myChart1.dispose();
+      this.myChart2.dispose();
+      this.myChart1 = null;
+      this.myChart2 = null;
     },
     methods: {
       iconmFunction(){//同比图
         let self = this;
-        let myChart = self.echarts.init(document.getElementById('main'));
-        myChart.setOption(self.option);
+        self.myChart1.setOption(self.option);
       },
       modalChart: function () { //弹框图表
         let self = this;
         self.isShow = !self.isShow;
+
         setTimeout(function () {
-          let myChart = Vue.prototype.echarts.init(document.getElementById('big_chart'));
-          myChart.setOption(self.option);
+          self.myChart2 = self.echarts.init(document.getElementById('big_chart'));
+
+          self.myChart2.setOption(self.option);
         },300)
       }
     },

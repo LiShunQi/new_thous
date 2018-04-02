@@ -11,6 +11,7 @@
     name: 'gzzbqk',
     data () {
       return {
+        myChart: null,
         option: {
           title: [
             {
@@ -78,12 +79,23 @@
       }
     },
     mounted: function () {
-      this.gzzbqkFunction();
+      let self = this;
+      self.$nextTick(function () {
+        self.myChart = self.echarts.init(document.getElementById('gzzbqk'));
+        self.gzzbqkFunction();
+      })
+    },
+    beforeDestroy(){
+        if(!this.myChart){
+            return ;
+        }
+        this.myChart.dispose();
+        this.myChart = null;
     },
     methods: {
       gzzbqkFunction(){
-        let myChart = this.echarts.init(document.getElementById('gzzbqk'));
-        myChart.setOption(this.option);
+        let self = this;
+        self.myChart.setOption(this.option);
       }
     },
     watch: {

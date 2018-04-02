@@ -9,37 +9,57 @@ import white from '@/components/whiteboard/white'
 
 Vue.use(Router);
 
-export default new Router({
-  routes: [
-    // {
-    //   path: '/',
-    //   name: 'HelloWorld',
-    //   component: HelloWorld
-    // },
-    { //login (登录)
-      path: '/login',
-      name: 'Login',
-      component: Login
+const routes = [
+  // {
+  //   path: '/',
+  //   name: 'HelloWorld',
+  //   component: HelloWorld
+  // },
+  { //login (登录)
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  { // 首页
+    path: '/',
+    name: 'index',
+    meta: {
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
     },
-    { // 首页
-      path: '/',
-      name: 'index',
-      component: index
+    component: index
+  },
+  { //集团情况
+    path: '/jtqy',
+    name: 'jtqk',
+    meta: {
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
     },
-    { //集团情况
-      path: '/jtqy',
-      name: 'jtqk',
-      component: jtqk
+    component: jtqk
+  },
+  { //企业情况
+    path: '/qyqk',
+    name: 'qyqk',
+    meta: {
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
     },
-    { //企业情况
-      path: '/qyqk',
-      name: 'qyqk',
-      component: qyqk
+    component: qyqk
+  },
+  { //数据白板
+    path: '/white',
+    name: 'white',
+    meta: {
+      requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
     },
-    { //企业情况
-      path: '/white',
-      name: 'white',
-      component: white
-    },
-  ]
-})
+    component: white
+  },
+];
+
+const router =  new Router({
+  routes
+});
+
+// router.beforeEach((to, from, next) => {
+//   console.log('router',to);
+// });
+
+export default router;
