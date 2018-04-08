@@ -159,13 +159,7 @@
       })
     },
     beforeDestroy(){
-      if(!this.myChart1 && !this.myChart2){
-          return ;
-      }
-      this.myChart1.dispose();
-      this.myChart2.dispose();
-      this.myChart1 = null;
-      this.myChart2 = null;
+
     },
     methods: {
       iconmFunction(){//同比图

@@ -52,9 +52,13 @@ const routes = [
     },
     component: white
   },
+  {
+    path:'*',redirect:'/' //找不到匹配的路由跳到首页
+  }
 ];
 
 const router =  new Router({
+  // mode: 'history', //去除# HTML5 History 模式
   routes
 });
 
