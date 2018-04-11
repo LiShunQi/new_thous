@@ -39911,7 +39911,7 @@
             self.$emit('indexJuck', false);
             eventBus.$emit('name', maparams.data.name);
             self.$store.commit('SET_SHOW_ALLBACK', true);
-//            self.$store.dispatch('get_index_data', {swjgdmChange: maparams.data.swjgmcoption, kssj: self.kssj, jzsj: self.jzsj});
+            self.$store.dispatch('get_index_data', {swjgdmChange: maparams.data.swjgmcoption, kssj: self.kssj, jzsj: self.jzsj});
             self.option.series[0].data.forEach(function (v, index) {
               if (maparams.data.name == v.name) {
                 v.selected = true;

@@ -61,7 +61,7 @@
       let self = this;
       self.$nextTick(function () {
           self.$store.commit('SET_SHOW_TIME', true);
-//        self.$store.dispatch('get_index_data', {kssj: '', jzsj: '', swjgdm: ''});
+        self.$store.dispatch('get_index_data', {kssj: '', jzsj: '', swjgdm: ''});
       });
     },
     methods: {
