@@ -12,7 +12,8 @@ module.exports = {
     proxyTable: {
       '/thousands': {
         // target:  'http://192.168.1.123:8000',
-        target:  'http://91.18.24.22:1111',
+        // target:  'http://91.18.24.22:1111',
+        target:  'http://91.18.24.78:8001',
         changeOrigin: true,
         pathRewrite: {
           '^/thousands': '/thousands'
