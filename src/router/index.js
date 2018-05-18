@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
-import Login from '@/components/login/Login'
-import index from '@/components/index/index'
-import jtqk from '@/components/jtqk/jtqk'
-import qyqk from '@/components/qyqk/qyqk'
-import white from '@/components/whiteboard/white'
+const Login = r => require.ensure([], () => r(require('@/components/login/Login.vue')), 'login');
+const index = r => require.ensure([], () => r(require('@/components/index/index.vue')), 'index');
+const jtqk = r => require.ensure([], () => r(require('@/components/jtqk/jtqk.vue')), 'jtqk');
+const qyqk = r => require.ensure([], () => r(require('@/components/qyqk/qyqk.vue')), 'qyqk');
+const white = r => require.ensure([], () => r(require('@/components/whiteboard/white.vue')), 'white');
 
 Vue.use(Router);
 
